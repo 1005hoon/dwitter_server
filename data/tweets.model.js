@@ -17,25 +17,25 @@ let tweets = [
 	new Tweet("third tweet", "1005hoon", "hoon", ""),
 ];
 
-export const getAll = () => {
+export const getAll = async () => {
 	return tweets;
 };
 
-export const getAllByUsername = (username) => {
+export const getAllByUsername = async (username) => {
 	return tweets.filter((t) => t.username === username);
 };
 
-export const getById = (id) => {
+export const getById = async (id) => {
 	return tweets.find((t) => t.id === +id);
 };
 
-export const create = (text, username, name, url) => {
+export const create = async (text, username, name, url) => {
 	const tweet = new Tweet(text, username, name, url);
 	tweets = [tweet, ...tweets];
 	return tweet;
 };
 
-export const updateById = (id, text) => {
+export const updateById = async (id, text) => {
 	const tweet = tweets.find((t) => t.id === +id);
 	if (!tweet) {
 		return undefined;
@@ -45,6 +45,6 @@ export const updateById = (id, text) => {
 	return tweet;
 };
 
-export const deleteById = (id) => {
+export const deleteById = async (id) => {
 	tweets = tweets.filter((t) => t.id !== +id);
 };

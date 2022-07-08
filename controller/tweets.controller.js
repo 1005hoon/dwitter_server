@@ -7,7 +7,7 @@ import * as tweetsRepository from "../data/tweets.model.js";
  */
 export const getAllTweets = async (req, res) => {
 	const username = req.query.username;
-	const data = username ? tweetsRepository.getAllByUsername(username) : tweetsRepository.getAll();
+	const data = username ? await tweetsRepository.getAllByUsername(username) : await tweetsRepository.getAll();
 	res.status(200).json(data);
 };
 
@@ -18,7 +18,7 @@ export const getAllTweets = async (req, res) => {
  */
 export const getTweetById = async (req, res) => {
 	const tweetId = req.params.id;
-	const tweet = tweetsRepository.getById(tweetId);
+	const tweet = await tweetsRepository.getById(tweetId);
 	if (!tweet) {
 		return res.status(404).json({ message: `Tweet id ${tweetId} does not exist!` });
 	}
@@ -32,7 +32,7 @@ export const getTweetById = async (req, res) => {
  */
 export const createTweet = async (req, res) => {
 	const { text, username, name, url } = req.body;
-	const tweet = tweetsRepository.create(text, username, name, url);
+	const tweet = await tweetsRepository.create(text, username, name, url);
 
 	res.status(201).json(tweet);
 };
@@ -46,7 +46,7 @@ export const updateTweetById = async (req, res) => {
 	const tweetId = req.params.id;
 	const { text } = req.body;
 
-	const tweet = tweetsRepository.updateById(tweetId, text);
+	const tweet = await tweetsRepository.updateById(tweetId, text);
 
 	if (!tweet) {
 		return res.status(404).json({ message: `Tweet id ${tweetId} does not exist!` });
@@ -62,6 +62,6 @@ export const updateTweetById = async (req, res) => {
  */
 export const deleteTweetById = async (req, res) => {
 	const tweetId = req.params.id;
-	tweetsRepository.deleteById(tweetId);
+	await tweetsRepository.deleteById(tweetId);
 	res.sendStatus(204);
 };
