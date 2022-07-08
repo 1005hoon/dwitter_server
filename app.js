@@ -100,6 +100,15 @@ app.delete("/tweets/:id", (req, res) => {
 	res.status(209).send();
 });
 
+app.use((req, res, next) => {
+	res.sendStatus(404);
+});
+
+app.use((error, req, res, next) => {
+	console.error(error);
+	res.sendStatus(500);
+});
+
 const PORT = 8080;
 
 app.listen(PORT, () => {
